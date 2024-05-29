@@ -95,6 +95,33 @@ vector<string> infixToPostfix(vector<string> infix){
 	return postfix;
 }
 
+double evaluatePostfix(vector<string>& postfix){
+	vector<double> result;
+	for(auto itr = postfix.begin(); itr != postfix.end(); itr++){
+		string tmp = *itr;
+		if (isdigit(tmp[0]||(tmp[0])=='-' && tmp.size()>1 && is digit(tmp[1]))){
+			result.push_back(stod(tmp));
+		}else{
+			int num1=result.back();
+			result.pop_back();
+			int num2= result.back();
+			result.pop_back();
+			if(tmp == "+"){
+				result.push_back(num2+num1);
+			}else if(tmp == "-"){
+				result.push_back(num2-num1);
+			}else if(tmp=="*"){
+				result.push.back(num2*num1);
+			}else if(tmp == "/"){
+				result.push_back(num2/num1);
+			}else if(tmp=="%"){
+				result.push_back(num2 % num1);
+			}
+		}
+	}
+    return result.back();
+}
+
 void print(vector<string>&string){
 	for(auto itr = string.begin(); itr!= string.end(); itr++){
 		cout << *itr << " ";
