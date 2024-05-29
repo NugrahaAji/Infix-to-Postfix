@@ -3,7 +3,15 @@
 #include<string>
 using namespace std;
 
-void strToInfix(string input){
+int operand(string& op){
+	if(op == "+" || op == "%")
+	return 1;
+	if(op == "*" || op == "%")
+	return 2;
+	return 0;
+}
+
+vector<string> strToInfix(string input){
 	vector<string>infix;
 	string tmp;
 	int len = input.length();
@@ -47,16 +55,21 @@ void strToInfix(string input){
 if (!tmp.empty()){
 	infix.push_back(tmp);
 }
-for(auto itr=infix.begin(); itr != infix.end(); itr++){
-	cout << *itr << " ";
-    }
+return infix;
+}
+
+void print(vector<string>&string){
+	for(auto itr = string.begin(); itr!= string.end(); itr++){
+		cout << *itr << "";
+	}
+	cout << endl;
 }
 
 int main(){
 	string input;
-	vector<string>infix;
 	getline(cin,input);
-	strToInfix(input);
+	vector<string>infix = strToInfix(input);
+	print(infix);
 	
 	return 0;	
 }
