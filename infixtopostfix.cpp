@@ -41,7 +41,7 @@ vector<string> strToInfix(string input){
 			    	infix.push_back("+");
 			    }
 		     	else if(i==0) tmp += input[i];
-				
+
 		     	else infix.push_back(string(1,input[i]));
 	    		}
 		    	else if(input[i-1]==')'){
@@ -99,22 +99,29 @@ double evaluatePostfix(vector<string>& postfix){
 	vector<double> result;
 	for(auto itr = postfix.begin(); itr != postfix.end(); itr++){
 		string tmp = *itr;
-		if (isdigit(tmp[0]||(tmp[0])=='-' && tmp.size()>1 && is digit(tmp[1]))){
+		if (isdigit(tmp[0])||(tmp[0]=='-' && tmp.size()>1 && isdigit(tmp[1]))){
 			result.push_back(stod(tmp));
-		}else{
-			int num1=result.back();
+		}else if(tmp != "%"){
+			double num1=result.back();
 			result.pop_back();
-			int num2= result.back();
+			double num2= result.back();
 			result.pop_back();
 			if(tmp == "+"){
 				result.push_back(num2+num1);
 			}else if(tmp == "-"){
 				result.push_back(num2-num1);
 			}else if(tmp=="*"){
-				result.push.back(num2*num1);
+				result.push_back(num2*num1);
 			}else if(tmp == "/"){
 				result.push_back(num2/num1);
-			}else if(tmp=="%"){
+			}
+		}
+		else if(tmp == "%"){
+			int num1=result.back();
+			result.pop_back();
+			int num2= result.back();
+			result.pop_back();
+			if(tmp=="%"){
 				result.push_back(num2 % num1);
 			}
 		}
@@ -134,8 +141,10 @@ int main(){
 	getline(cin,input);
 	vector<string> infix = strToInfix(input);
 	vector<string> postfix = infixToPostfix(infix);
-	print(postfix);
-	
+	//print(infix);
+	//print(postfix);
+	cout << evaluatePostfix(postfix) <<endl;
+
 	return 0;	
 }
 
